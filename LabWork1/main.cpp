@@ -11,7 +11,7 @@ int main() {
     assert(record.getCourse() == 4);
     assert(record.getFullName() == "Full Name");
     assert(record.getDate() == "13.10.2001");
-    assert(record.getVolume() == 6);
+    assert(record.getVolume() == 5);
     assert(record.getCourse() == 4);
     assert(copyRecord.getFullName() == "Full Name");
     assert(copyRecord.getDate() == "13.10.2001");
