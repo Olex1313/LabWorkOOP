@@ -2,9 +2,25 @@
 #include "record.h"
 #include <string>
 #include <exception>
+#include <cassert>
 
 int main() {
-    Record r("Full Name", 4, "13.10.2001");
-    std::cout << r.getFullName() << " " << r.getCourse() << " " << r.getDate() << std::endl;
+    Record record = Record("Full Name", 4, "13.10.2001", 5);
+    Record defaultRecord = Record();
+    Record copyRecord = Record(record);
+    assert(record.getCourse() == 4);
+    assert(record.getFullName() == "Full Name");
+    assert(record.getDate() == "13.10.2001");
+    assert(record.getVolume() == 6);
+    assert(record.getCourse() == 4);
+    assert(copyRecord.getFullName() == "Full Name");
+    assert(copyRecord.getDate() == "13.10.2001");
+    assert(copyRecord.getVolume() == 5);
+    assert(copyRecord.getCourse() == 4);
+    assert(defaultRecord.getFullName() == "");
+    assert(defaultRecord.getDate() == "");
+    assert(defaultRecord.getVolume() == 0);
+    assert(defaultRecord.getCourse() == 0);
+    std::cout << "All tests completed without errors" << std::endl;
     return 0;
 }

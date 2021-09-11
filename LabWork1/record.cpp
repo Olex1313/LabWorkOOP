@@ -1,14 +1,18 @@
 #include "record.h"
 
-Record::Record(std::string fullName, int course, std::string date) {
+Record::Record(std::string fullName, int course, std::string date, int volume) {
     if (not Record::checkDate(date)) {
         throw std::exception();
     }
     if (not Record::checkCourse(course)) {
         throw std::exception();
     }
+    if (not Record::checkVolume(volume)) {
+        throw std::exception();
+    }
     this->fullName = fullName;
     this->course = course;
+    this->volume = volume;
     this->date = date;
 }
 
@@ -16,12 +20,14 @@ Record::Record(const Record& record) {
     fullName = record.fullName;
     course = record.course;
     date = record.date;
+    volume = record.volume;
 }
 
 Record::Record() {
-    fullName = nullptr;
+    fullName = "";
     course = 0;
-    date = nullptr;
+    date = "";
+    volume = 0;
 }
 
 std::string Record::getFullName() {
@@ -36,19 +42,34 @@ std::string Record::getDate() {
     return date;
 }
 
+int Record::getVolume() {
+    return volume;
+}
+
 void Record::setFullName(std::string newName) {
-    fullName = newName;
+    this->fullName = newName;
 }
 
 void Record::setCourse(int newCourse) {
-    if (newCourse < 1 || newCourse > 4) {
+    if (not checkCourse(newCourse)) {
         throw std::exception();
     }
-    course = newCourse;
+    this->course = newCourse;
+}
+
+void Record::setVolume(int volume) {
+    if (not checkVolume(volume)) {
+        throw std::exception();
+    }
+    this->volume = volume;
 }
 
 bool Record::checkCourse(int course) {
     return (course > 0 && course < 5) ? true : false;
+}
+
+bool Record::checkVolume(int volume) {
+    return (volume > 0) ? true : false;
 }
 
 bool Record::checkDate(std::string date) {
