@@ -7,9 +7,9 @@ Record::Record(std::string fullName, int course, std::string date) {
     if (not Record::checkCourse(course)) {
         throw std::exception();
     }
-    fullName = fullName;
-    course = course;
-    date = date;
+    this->fullName = fullName;
+    this->course = course;
+    this->date = date;
 }
 
 Record::Record(const Record& record) {

@@ -1,41 +1,32 @@
 #ifndef RECORD_H
 #define RECORD_H
+#include <string>
 class Record {
     public:
-        Record(std::string fullName, int course, std::string date) {
-        }
+        Record(std::string fullName, int course, std::string date);
 
-        Record(const Record& record) {
-        }
+        Record(const Record& record);
 
-        Record() {
-        }
+        Record();
 
-        std::string getFullName() {
-        }
+        std::string getFullName();
 
-        int getCourse() {
-        }
+        int getCourse();
 
-        std::string getDate() {
-        }
+        std::string getDate();
 
-        void setFullName(std::string newName) {
-        }
+        void setFullName(std::string newName);
 
-        void setCourse(int newCourse) {
-        }
+        void setCourse(int newCourse);
 
     private:
         std::string fullName;
         int course;
         std::string date;
 
-        static bool checkCourse(int course) {
-        }
+        static bool checkCourse(int course);
 
-        static bool checkDate(std::string date) {
-        }
+        static bool checkDate(std::string date);
 };
 
 #endif
