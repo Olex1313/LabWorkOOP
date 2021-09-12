@@ -25,6 +25,7 @@ class Record {
 
         void setVolume(int newVolume);
 
+
     private:
         std::string fullName;
         int course;
