@@ -37,7 +37,6 @@ int main() {
     journal.dumpToFile("test.txt");
     journal.clear();
     assert(journal.size() == 0);
-
     std::cout << "All tests completed without errors" << std::endl;
     return 0;
 }
