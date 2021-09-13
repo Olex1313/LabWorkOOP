@@ -1,5 +1,7 @@
 #include "journal.h"
 #include <iostream>
+#include <fstream>
+#include <string>
 
 Journal::Journal(int size) {
     this->records = new Record[size];
@@ -81,8 +83,9 @@ Record& Journal::operator[](int index) {
     return this->records[index];
 }
 
+
 void Journal::clear() {
-    delete[] this->records;
+    this->current = 0;
 }
 
 Record* Journal::getRecords() {
@@ -93,4 +96,20 @@ void Journal::print() {
     for (int i = 0; i < this->current; i++) {
         std::cout << this->records[i].getFullName() << std::endl;
     }
+}
+
+void Journal::dumpToFile(std::string filename) {
+    std::ofstream outfile;
+    outfile.open(filename);
+    outfile << this->serializeToString();
+    outfile.close();
+}
+
+std::string Journal::serializeToString() const {
+    std::string result = "";
+    for (int i = 0; i < current; i++) {
+        result += this->records[i].toString();
+        result += ";";
+    }
+    return result;
 }

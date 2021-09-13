@@ -9,13 +9,13 @@ class Record {
 
         Record();
 
-        std::string getFullName();
+        const std::string& getFullName() const;
 
-        int getCourse();
+        int getCourse() const;
 
-        std::string getDate();
+        const std::string& getDate() const;
 
-        int getVolume();
+        int getVolume() const;
 
         void setFullName(std::string newName);
 
@@ -25,7 +25,7 @@ class Record {
 
         void setVolume(int newVolume);
 
-
+        std::string toString() const;
     private:
         std::string fullName;
         int course;
@@ -38,5 +38,5 @@ class Record {
 
         static bool checkVolume(int volume);
 };
-
+bool operator==(const Record& r1, const Record& r2);
 #endif

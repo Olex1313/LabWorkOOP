@@ -30,20 +30,20 @@ Record::Record() {
     volume = 0;
 }
 
-std::string Record::getFullName() {
-    return fullName;
+const std::string& Record::getFullName() const {
+    return this->fullName;
 }
 
-int Record::getCourse() {
-    return course;
+int Record::getCourse() const {
+    return this->course;
 }
 
-std::string Record::getDate() {
-    return date;
+const std::string& Record::getDate() const {
+    return this->date;
 }
 
-int Record::getVolume() {
-    return volume;
+int Record::getVolume() const {
+    return this->volume;
 }
 
 void Record::setFullName(std::string newName) {
@@ -55,13 +55,6 @@ void Record::setCourse(int newCourse) {
         throw std::exception();
     }
     this->course = newCourse;
-}
-
-void Record::setVolume(int volume) {
-    if (not checkVolume(volume)) {
-        throw std::exception();
-    }
-    this->volume = volume;
 }
 
 bool Record::checkCourse(int course) {
@@ -89,4 +82,27 @@ bool Record::checkDate(std::string date) {
         return false;
     }
     return true;
+}
+
+void Record::setVolume(int volume) {
+    if (not checkVolume(volume)) {
+        throw std::exception();
+    }
+    this->volume = volume;
+}
+
+std::string Record::toString() const {
+    std::string result = "";
+    result += this->getFullName() + ", ";
+    result += std::to_string(this->getCourse()) + ", ";
+    result += this->getDate() + ", ";
+    result += std::to_string(this->getVolume());
+    return result;
+}
+
+bool operator==(const Record& r1, const Record& r2) {
+    return r1.getCourse() == r2.getCourse()
+        && r1.getDate() == r2.getDate()
+        && r1.getFullName() == r2.getFullName()
+        && r1.getVolume() == r2.getVolume();
 }

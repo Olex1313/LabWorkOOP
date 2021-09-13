@@ -33,6 +33,10 @@ int main() {
     assert(defaultRecord.getDate() == "");
     assert(defaultRecord.getVolume() == 0);
     assert(defaultRecord.getCourse() == 0);
+    assert(record == copyRecord);
+    journal.dumpToFile("test.txt");
+    journal.clear();
+    assert(journal.size() == 0);
 
     std::cout << "All tests completed without errors" << std::endl;
     return 0;

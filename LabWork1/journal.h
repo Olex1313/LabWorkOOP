@@ -1,5 +1,6 @@
 #include "record.h"
 #include <iostream>
+#include <string>
 #ifndef JOURNAL_H
 #define JOURNAL_H
 
@@ -32,10 +33,13 @@ class Journal {
         void clear();
 
         Record *getRecords();
+
+        void dumpToFile(std::string filename);
     private:
         Record *records;
         int capacity;
         int current;
+        std::string serializeToString() const ;
 };
 
 
