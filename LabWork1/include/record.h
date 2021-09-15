@@ -3,7 +3,7 @@
 #include <string>
 class Record {
     public:
-        Record(std::string fullName, int course, std::string date, int volume);
+        Record(std::string fullName, int course, std::string date);
 
         Record(const Record& record);
 
@@ -15,28 +15,24 @@ class Record {
 
         const std::string& getDate() const;
 
-        int getVolume() const;
-
         void setFullName(std::string newName);
 
         void setCourse(int newCourse);
 
         void setDate(std::string newDate);
 
-        void setVolume(int newVolume);
+        virtual const std::string& toString() const;
 
-        std::string toString() const;
     private:
         std::string fullName;
-        int course;
-        std::string date;
-        int volume;
 
+        int course;
+
+        std::string date;
+    protected:
         static bool checkCourse(int course);
 
         static bool checkDate(std::string date);
-
-        static bool checkVolume(int volume);
 };
 bool operator==(const Record& r1, const Record& r2);
 #endif
