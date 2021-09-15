@@ -1,18 +1,14 @@
 #include "../include/record.h"
 
-Record::Record(std::string fullName, int course, std::string date, int volume) {
+Record::Record(std::string fullName, int course, std::string date) {
     if (not Record::checkDate(date)) {
         throw std::exception();
     }
     if (not Record::checkCourse(course)) {
         throw std::exception();
     }
-    if (not Record::checkVolume(volume)) {
-        throw std::exception();
-    }
     this->fullName = fullName;
     this->course = course;
-    this->volume = volume;
     this->date = date;
 }
 
@@ -20,14 +16,12 @@ Record::Record(const Record& record) {
     fullName = record.fullName;
     course = record.course;
     date = record.date;
-    volume = record.volume;
 }
 
 Record::Record() {
     fullName = "";
     course = 0;
     date = "";
-    volume = 0;
 }
 
 const std::string& Record::getFullName() const {
@@ -40,10 +34,6 @@ int Record::getCourse() const {
 
 const std::string& Record::getDate() const {
     return this->date;
-}
-
-int Record::getVolume() const {
-    return this->volume;
 }
 
 void Record::setFullName(std::string newName) {
@@ -59,10 +49,6 @@ void Record::setCourse(int newCourse) {
 
 bool Record::checkCourse(int course) {
     return (course > 0 && course < 5) ? true : false;
-}
-
-bool Record::checkVolume(int volume) {
-    return (volume > 0) ? true : false;
 }
 
 bool Record::checkDate(std::string date) {
@@ -84,25 +70,12 @@ bool Record::checkDate(std::string date) {
     return true;
 }
 
-void Record::setVolume(int volume) {
-    if (not checkVolume(volume)) {
-        throw std::exception();
-    }
-    this->volume = volume;
-}
-
 std::string Record::toString() const {
-    std::string result = "";
-    result += this->getFullName() + ", ";
-    result += std::to_string(this->getCourse()) + ", ";
-    result += this->getDate() + ", ";
-    result += std::to_string(this->getVolume());
-    return result;
+    return this->fullName;
 }
 
 bool operator==(const Record& r1, const Record& r2) {
     return r1.getCourse() == r2.getCourse()
         && r1.getDate() == r2.getDate()
-        && r1.getFullName() == r2.getFullName()
-        && r1.getVolume() == r2.getVolume();
+        && r1.getFullName() == r2.getFullName();
 }

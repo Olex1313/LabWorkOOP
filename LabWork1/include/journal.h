@@ -35,8 +35,11 @@ class Journal {
         void dumpToFile(std::string filename) const;
     private:
         Record *records;
+
         int capacity;
+
         int current;
+
         std::string serializeToString() const ;
 };
 

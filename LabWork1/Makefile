@@ -21,7 +21,7 @@ INCLUDES = -I../include
 LFLAGS = -L../lib
 
 # define the C source files
-SRCS = src/main.cpp src/record.cpp src/journal.cpp
+SRCS = src/main.cpp src/record.cpp src/journal.cpp src/flow_record.cpp
 
 # define the C object files
 #
