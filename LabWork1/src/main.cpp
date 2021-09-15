@@ -1,7 +1,6 @@
 #include <iostream>
-#include "record.h"
-#include "journal.h"
-#include <string>
+#include "../include/record.h"
+#include "../include/journal.h"
 #include <exception>
 #include <cassert>
 
@@ -34,7 +33,10 @@ int main() {
     assert(defaultRecord.getVolume() == 0);
     assert(defaultRecord.getCourse() == 0);
     assert(record == copyRecord);
-    journal.dumpToFile("test.txt");
+    // journal.dumpToFile("test.txt");
+    {
+        Journal journal = Journal(5);
+    }
     journal.clear();
     assert(journal.size() == 0);
     std::cout << "All tests completed without errors" << std::endl;

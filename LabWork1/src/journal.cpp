@@ -1,4 +1,4 @@
-#include "journal.h"
+#include "../include/journal.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -23,7 +23,7 @@ Journal::Journal() {
 }
 
 Journal::~Journal() {
-    this->clear();
+    delete [] this->records;
 }
 
 void Journal::add(Record record) {
@@ -75,7 +75,7 @@ void Journal::remove(int index) {
     this->current--;
 }
 
-int Journal::size() {
+int Journal::size() const {
     return this->current;
 }
 
@@ -88,17 +88,13 @@ void Journal::clear() {
     this->current = 0;
 }
 
-Record* Journal::getRecords() {
-    return this->records;
-}
-
 void Journal::print() {
     for (int i = 0; i < this->current; i++) {
         std::cout << this->records[i].getFullName() << std::endl;
     }
 }
 
-void Journal::dumpToFile(std::string filename) {
+void Journal::dumpToFile(std::string filename) const {
     std::ofstream outfile;
     outfile.open(filename);
     outfile << this->serializeToString();

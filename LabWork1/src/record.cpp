@@ -1,4 +1,4 @@
-#include "record.h"
+#include "../include/record.h"
 
 Record::Record(std::string fullName, int course, std::string date, int volume) {
     if (not Record::checkDate(date)) {

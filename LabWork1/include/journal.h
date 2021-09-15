@@ -26,15 +26,13 @@ class Journal {
 
         bool checkDates();
 
-        int size();
+        int size() const;
 
         Record &operator [](int index);
 
         void clear();
 
-        Record *getRecords();
-
-        void dumpToFile(std::string filename);
+        void dumpToFile(std::string filename) const;
     private:
         Record *records;
         int capacity;
