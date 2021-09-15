@@ -4,10 +4,7 @@ FlowRecord::FlowRecord(std::string fullName, int course, std::string date, int v
     this->volume = volume;
 }
 
-FlowRecord::FlowRecord(const FlowRecord& record) {
-    this->setFullName(record.getFullName());
-    this->setCourse(record.getCourse());
-    this->setDate(record.getDate());
+FlowRecord::FlowRecord(const FlowRecord& record) : Record(record) {
     volume = record.volume;
 }
 
@@ -31,7 +28,7 @@ void FlowRecord::setVolume(int volume) {
     this->volume = volume;
 }
 
-const std::string& FlowRecord::toString() const {
+std::string FlowRecord::toString() const {
     std::string result = "";
     result += this->getFullName() + ", ";
     result += std::to_string(this->getCourse()) + ", ";

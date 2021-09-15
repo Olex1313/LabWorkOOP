@@ -21,7 +21,7 @@ class Record {
 
         void setDate(std::string newDate);
 
-        virtual const std::string& toString() const;
+        virtual std::string toString() const;
 
     private:
         std::string fullName;

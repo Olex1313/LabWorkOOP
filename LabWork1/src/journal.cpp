@@ -9,7 +9,7 @@ Journal::Journal(int size) {
     this->capacity = size;
 }
 
-Journal::Journal(const Journal& journal) {
+Journal::Journal(const Journal& journal) { // Needs fix due to copying adress
     this->records = journal.records;
     this->capacity = journal.capacity;
     this->current = 0;
@@ -36,7 +36,8 @@ void Journal::add(Record record) {
         capacity *= 2;
         this->records = temporary;
     }
-    this->records[current++] = record;
+    this->records[current] = record;
+    current++;
 }
 
 void Journal::add(Record record, int index) {

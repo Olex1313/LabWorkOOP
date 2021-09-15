@@ -3,7 +3,7 @@
 #include <string>
 #include "../include/record.h"
 
-class FlowRecord : private Record {
+class FlowRecord : public Record {
     public:
         FlowRecord(std::string fullName, int course, std::string date, int volume);
 
@@ -15,7 +15,7 @@ class FlowRecord : private Record {
 
         void setVolume(int newVolume);
 
-        const std::string& toString() const;
+        std::string toString() const;
     private:
         static bool checkVolume(int volume);
         int volume;

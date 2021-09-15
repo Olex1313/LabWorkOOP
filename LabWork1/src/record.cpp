@@ -70,7 +70,7 @@ bool Record::checkDate(std::string date) {
     return true;
 }
 
-const std::string& Record::toString() const {
+std::string Record::toString() const {
     return this->fullName;
 }
 
