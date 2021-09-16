@@ -1,8 +1,14 @@
 #include "../include/journal.h"
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <typeinfo>
+
+std::vector<std::string> split(const std::string &s, char delim) {
+    std::stringstream ss(s);
+    std::string item;
+    std::vector<std::string> elems;
+    while (std::getline(ss, item, delim)) {
+        elems.push_back(std::move(item));
+    }
+    return elems;
+}
 
 Journal::Journal(int size) {
     this->records = new Record*[size];
@@ -102,6 +108,44 @@ void Journal::dumpToFile(const std::string& filename) const {
     outfile.open(filename);
     outfile << this->serializeToString();
     outfile.close();
+}
+
+void Journal::loadFromFile(const std::string& filename) {
+    std::ifstream file(filename);
+    if (file.is_open()) {
+        std::string line;
+        while (std::getline(file, line)) {
+            std::vector<std::string> elems = split(line, ';');
+            std::cout << line << std::endl;
+            if(elems[0] ==  "6Record") {
+                std::string fullName = elems[1];
+                int course = std::stoi(elems[2]);
+                std::string date = elems[3];
+                Record* record = new Record(fullName, course, date);
+                this->add(record);
+            }
+            else if (elems[0] == "10FlowRecord") {
+                std::string fullName = elems[1];
+                int course = std::stoi(elems[2]);
+                std::string date = elems[3];
+                int volume = std::stoi(elems[4]);
+                FlowRecord* record = new FlowRecord(fullName, course, date, volume);
+                this->add(record);
+            }
+            else if( elems[0] == "9CutRecord") {
+                std::string fullName = elems[1];
+                int course = std::stoi(elems[2]);
+                std::string date = elems[3];
+                int branches = std::stoi(elems[4]);
+                CutRecord* record = new CutRecord(fullName, course, date, branches);
+                this->add(record);
+            }
+            else {
+                continue;
+            }
+        }
+        file.close();
+    }
 }
 
 std::string Journal::serializeToString() const {

@@ -71,7 +71,7 @@ bool Record::checkDate(std::string date) {
 }
 
 std::string Record::toString() const {
-    return this->fullName + ";" + this->date + ";" + std::to_string(this->course);
+    return this->fullName + ";" + std::to_string(this->course) + ";" + this->date;
 }
 
 bool operator==(const Record& r1, const Record& r2) {

@@ -32,6 +32,9 @@ int main() {
     journal.print();
     std::string filename = "test.txt";
     journal.dumpToFile(filename);
+    journal.clear();
+    journal.loadFromFile(filename);
+    journal.print();
     std::cout << "All tests completed without errors" << std::endl;
     return 0;
 }

@@ -1,6 +1,13 @@
 #include "record.h"
+#include "flow_record.h"
+#include "cut_record.h"
 #include <iostream>
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <typeinfo>
+#include <vector>
+#include <sstream>
 #ifndef JOURNAL_H
 #define JOURNAL_H
 
@@ -33,6 +40,8 @@ class Journal {
         void clear();
 
         void dumpToFile(const std::string& filename) const;
+
+        void loadFromFile(const std::string& filename);
 
     private:
         Record **records;
