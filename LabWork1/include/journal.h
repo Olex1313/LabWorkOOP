@@ -43,6 +43,8 @@ class Journal {
 
         void loadFromFile(const std::string& filename);
 
+        bool checkDates() const;
+
     private:
         Record **records;
 

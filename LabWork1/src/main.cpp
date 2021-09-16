@@ -21,7 +21,6 @@ int main() {
     assert(defaultRecord.getDate() == "");
     assert(defaultRecord.getCourse() == 0);
     assert(record == copyRecord);
-
     Journal journal = Journal(2);
     Record* p = &record;
     FlowRecord* flowRecord = new FlowRecord("flow record", 3, "15.09.2021", 4);
@@ -35,6 +34,7 @@ int main() {
     journal.clear();
     journal.loadFromFile(filename);
     journal.print();
+    assert(journal.checkDates());
     std::cout << "All tests completed without errors" << std::endl;
     return 0;
 }

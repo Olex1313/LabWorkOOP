@@ -10,6 +10,40 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
+int compareDates(const std::string& firstDate, const std::string& secondDate) {
+    // if left is later than right it returns 1
+    // if right is later than left it returns -1
+    // otherwise it returns 0
+    if (firstDate == secondDate) {
+        return 0;
+    }
+    int firstYear = std::stoi(firstDate.substr(6, 4));
+    int secondYear = std::stoi(secondDate.substr(6, 4));
+    if (firstYear > secondYear) {
+        return 1;
+    }
+    if (secondYear > firstYear) {
+        return -1;
+    }
+    int firstMonth = std::stoi(firstDate.substr(3, 2));
+    int secondMonth = std::stoi(secondDate.substr(3, 2));
+    if (firstMonth > secondMonth) {
+        return 1;
+    }
+    if (secondMonth > firstMonth) {
+        return -1;
+    }
+    int firstDay = std::stoi(firstDate.substr(0, 2));
+    int secondDay = std::stoi(secondDate.substr(0, 2));
+    if (firstDay > secondDay) {
+        return 1;
+    }
+    if (secondDay > firstDay) {
+        return -1;
+    }
+    return 0;
+}
+
 Journal::Journal(int size) {
     this->records = new Record*[size];
     this->current = 0;
@@ -146,6 +180,21 @@ void Journal::loadFromFile(const std::string& filename) {
         }
         file.close();
     }
+}
+
+bool Journal::checkDates() {
+    if (this->current == 0 || this->current == 1) {
+        return true;
+    }
+    for (int i = 1; i < this->current; i++) {
+        std::string firstDate = this->records[i]->getDate();
+        std::string secondDate = this->records[i - 1]->getDate();
+        int dateDiff = compareDates(firstDate, secondDate);
+        if (dateDiff == -1) {
+            return false;
+        }
+    }
+    return true;
 }
 
 std::string Journal::serializeToString() const {

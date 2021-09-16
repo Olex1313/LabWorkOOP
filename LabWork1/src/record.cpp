@@ -56,7 +56,7 @@ bool Record::checkDate(std::string date) {
         return false;
     }
     int day = std::stoi(date.substr(0,2));
-    if (day < 1 || day > 31) {
+    if (day < 1 || day > 28) {
         return false;
     }
     int month = std::stoi(date.substr(3, 2));
