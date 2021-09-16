@@ -30,9 +30,9 @@ void CutRecord::setBranches(int branches) {
 
 std::string CutRecord::toString() const {
     std::string result = "";
-    result += this->getFullName() + ", ";
-    result += std::to_string(this->getCourse()) + ", ";
-    result += this->getDate() + ", ";
+    result += this->getFullName() + ";";
+    result += std::to_string(this->getCourse()) + ";";
+    result += this->getDate() + ";";
     result += std::to_string(this->getBranches());
     return result;
 }

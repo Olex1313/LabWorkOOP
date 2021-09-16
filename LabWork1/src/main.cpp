@@ -30,7 +30,8 @@ int main() {
     journal.add(flowRecord);
     journal.add(cutRecord);
     journal.print();
-    journal.dumpToFile("test.txt");
+    std::string filename = "test.txt";
+    journal.dumpToFile(filename);
     std::cout << "All tests completed without errors" << std::endl;
     return 0;
 }

@@ -32,7 +32,8 @@ class Journal {
 
         void clear();
 
-        void dumpToFile(std::string filename) const;
+        void dumpToFile(const std::string& filename) const;
+
     private:
         Record **records;
 

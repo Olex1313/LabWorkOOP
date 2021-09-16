@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <typeinfo>
 
 Journal::Journal(int size) {
     this->records = new Record*[size];
@@ -96,7 +97,7 @@ void Journal::print() {
     }
 }
 
-void Journal::dumpToFile(std::string filename) const {
+void Journal::dumpToFile(const std::string& filename) const {
     std::ofstream outfile;
     outfile.open(filename);
     outfile << this->serializeToString();
@@ -106,8 +107,12 @@ void Journal::dumpToFile(std::string filename) const {
 std::string Journal::serializeToString() const {
     std::string result = "";
     for (int i = 0; i < current; i++) {
-        result += this->records[i]->toString();
+        result += typeid(*(this->records[i])).name();
         result += ";";
+        result += this->records[i]->toString();
+        if (i < current - 1) {
+            result += "\n";
+        }
     }
     return result;
 }

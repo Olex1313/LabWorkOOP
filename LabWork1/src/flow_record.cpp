@@ -30,9 +30,9 @@ void FlowRecord::setVolume(int volume) {
 
 std::string FlowRecord::toString() const {
     std::string result = "";
-    result += this->getFullName() + ", ";
-    result += std::to_string(this->getCourse()) + ", ";
-    result += this->getDate() + ", ";
+    result += this->getFullName() + ";";
+    result += std::to_string(this->getCourse()) + ";";
+    result += this->getDate() + ";";
     result += std::to_string(this->getVolume());
     return result;
 }
