@@ -1,6 +1,8 @@
 #include <iostream>
 #include "../include/record.h"
 #include "../include/journal.h"
+#include "../include/flow_record.h"
+#include "../include/cut_record.h"
 #include <exception>
 #include <cassert>
 
@@ -8,17 +10,6 @@ int main() {
     Record record = Record("Full Name", 4, "13.10.2001");
     Record defaultRecord = Record();
     Record copyRecord = Record(record);
-    Journal journal = Journal(1);
-    journal.add(record);
-    journal.add(defaultRecord);
-    journal.add(copyRecord);
-    journal.remove();
-    journal.add(Record("insert", 4, "13.12.2020"), 5);
-    journal.print();
-    std::cout << journal.size() << std::endl;
-    journal.remove(5);
-    journal.print();
-    std::cout << journal.size() << std::endl;
     assert(record.getCourse() == 4);
     assert(record.getFullName() == "Full Name");
     assert(record.getDate() == "13.10.2001");
@@ -30,11 +21,16 @@ int main() {
     assert(defaultRecord.getDate() == "");
     assert(defaultRecord.getCourse() == 0);
     assert(record == copyRecord);
-    {
-        Journal journal = Journal(5);
-    }
-    journal.clear();
-    assert(journal.size() == 0);
+
+    Journal journal = Journal(2);
+    Record* p = &record;
+    FlowRecord* flowRecord = new FlowRecord("flow record", 3, "15.09.2021", 4);
+    CutRecord* cutRecord = new CutRecord("cut record", 3, "15.09.2021", 4);
+    journal.add(p);
+    journal.add(flowRecord);
+    journal.add(cutRecord);
+    journal.print();
+    journal.dumpToFile("test.txt");
     std::cout << "All tests completed without errors" << std::endl;
     return 0;
 }

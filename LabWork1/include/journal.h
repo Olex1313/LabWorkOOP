@@ -14,9 +14,9 @@ class Journal {
 
         ~Journal();
 
-        void add(Record record);
+        void add(Record* record);
 
-        void add(Record record, int position);
+        void add(Record* record, int position);
 
         void remove(int index);
 
@@ -28,13 +28,13 @@ class Journal {
 
         int size() const;
 
-        Record &operator [](int index);
+        Record *operator [](int index);
 
         void clear();
 
         void dumpToFile(std::string filename) const;
     private:
-        Record *records;
+        Record **records;
 
         int capacity;
 

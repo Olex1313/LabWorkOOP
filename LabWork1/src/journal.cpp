@@ -4,7 +4,7 @@
 #include <string>
 
 Journal::Journal(int size) {
-    this->records = new Record[size];
+    this->records = new Record*[size];
     this->current = 0;
     this->capacity = size;
 }
@@ -16,19 +16,19 @@ Journal::Journal(const Journal& journal) { // Needs fix due to copying adress
 }
 
 Journal::Journal() {
-    int capacity = 0;
-    this->records = new Record[capacity];
-    for (int i = 0; i < capacity; this->records[i] = Record());
+    int capacity = 1;
+    this->records = new Record*[capacity];
+    for (int i = 0; i < capacity; this->records[i] = new Record);
     this->current = 0;
 }
 
 Journal::~Journal() {
-    delete [] this->records;
+    delete[] this->records;
 }
 
-void Journal::add(Record record) {
+void Journal::add(Record* record) {
     if (current == capacity) {
-        Record* temporary = new Record[2 * capacity];
+        Record** temporary = new Record*[2 * capacity];
         for (int i = 0; i < capacity; i++) {
             temporary[i] = this->records[i];
         }
@@ -40,11 +40,12 @@ void Journal::add(Record record) {
     current++;
 }
 
-void Journal::add(Record record, int index) {
+void Journal::add(Record* record, int index) {
     if (current == capacity) {
-        Record* temporary = new Record[2 * capacity];
+        Record** temporary = new Record*[2 * capacity];
         for (int i = 0; i < capacity; i++) {
             temporary[i] = this->records[i];
+            delete[] this->records[i];
         }
         delete[] this->records;
         capacity *= 2;
@@ -80,8 +81,8 @@ int Journal::size() const {
     return this->current;
 }
 
-Record& Journal::operator[](int index) {
-    return this->records[index];
+Record* Journal::operator[](int index) {
+    return (this->records[index]);
 }
 
 
@@ -91,7 +92,7 @@ void Journal::clear() {
 
 void Journal::print() {
     for (int i = 0; i < this->current; i++) {
-        std::cout << this->records[i].getFullName() << std::endl;
+        std::cout << this->records[i]->toString() << std::endl;
     }
 }
 
@@ -105,7 +106,7 @@ void Journal::dumpToFile(std::string filename) const {
 std::string Journal::serializeToString() const {
     std::string result = "";
     for (int i = 0; i < current; i++) {
-        result += this->records[i].toString();
+        result += this->records[i]->toString();
         result += ";";
     }
     return result;
