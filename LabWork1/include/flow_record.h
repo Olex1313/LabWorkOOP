@@ -16,6 +16,8 @@ class FlowRecord : public Record {
         void setVolume(int newVolume);
 
         std::string toString() const;
+
+        std::string getType() const;
     private:
         static bool checkVolume(int volume);
         int volume;

@@ -74,6 +74,10 @@ std::string Record::toString() const {
     return this->fullName + ";" + std::to_string(this->course) + ";" + this->date;
 }
 
+std::string Record::getType() const {
+    return "Record";
+}
+
 bool operator==(const Record& r1, const Record& r2) {
     return r1.getCourse() == r2.getCourse()
         && r1.getDate() == r2.getDate()

@@ -16,6 +16,8 @@ class CutRecord : public Record {
         void setBranches(int newbranches);
 
         std::string toString() const;
+
+        std::string getType() const;
     private:
         static bool checkBranches(int branches);
         int branches;

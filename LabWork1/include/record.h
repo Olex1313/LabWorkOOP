@@ -23,6 +23,7 @@ class Record {
 
         virtual std::string toString() const;
 
+        virtual std::string getType() const;
     private:
         std::string fullName;
 

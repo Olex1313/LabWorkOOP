@@ -151,14 +151,14 @@ void Journal::loadFromFile(const std::string& filename) {
         while (std::getline(file, line)) {
             std::vector<std::string> elems = split(line, ';');
             std::cout << line << std::endl;
-            if(elems[0] ==  "6Record") {
+            if(elems[0] ==  "Record") {
                 std::string fullName = elems[1];
                 int course = std::stoi(elems[2]);
                 std::string date = elems[3];
                 Record* record = new Record(fullName, course, date);
                 this->add(record);
             }
-            else if (elems[0] == "10FlowRecord") {
+            else if (elems[0] == "FlowRecord") {
                 std::string fullName = elems[1];
                 int course = std::stoi(elems[2]);
                 std::string date = elems[3];
@@ -166,7 +166,7 @@ void Journal::loadFromFile(const std::string& filename) {
                 FlowRecord* record = new FlowRecord(fullName, course, date, volume);
                 this->add(record);
             }
-            else if( elems[0] == "9CutRecord") {
+            else if( elems[0] == "CutRecord") {
                 std::string fullName = elems[1];
                 int course = std::stoi(elems[2]);
                 std::string date = elems[3];
@@ -200,7 +200,7 @@ bool Journal::checkDates() {
 std::string Journal::serializeToString() const {
     std::string result = "";
     for (int i = 0; i < current; i++) {
-        result += typeid(*(this->records[i])).name();
+        result += this->records[i]->getType();
         result += ";";
         result += this->records[i]->toString();
         if (i < current - 1) {

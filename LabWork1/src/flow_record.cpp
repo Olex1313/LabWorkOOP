@@ -37,6 +37,10 @@ std::string FlowRecord::toString() const {
     return result;
 }
 
+std::string FlowRecord::getType() const {
+    return "FlowRecord";
+}
+
 bool operator==(const FlowRecord& r1, const FlowRecord& r2) {
     return r1.getCourse() == r2.getCourse()
         && r1.getDate() == r2.getDate()

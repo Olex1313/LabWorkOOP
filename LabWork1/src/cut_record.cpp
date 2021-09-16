@@ -37,6 +37,10 @@ std::string CutRecord::toString() const {
     return result;
 }
 
+std::string CutRecord::getType() const {
+    return "CutRecord";
+}
+
 bool operator==(const CutRecord& r1, const CutRecord& r2) {
     return r1.getCourse() == r2.getCourse()
         && r1.getDate() == r2.getDate()
