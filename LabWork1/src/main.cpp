@@ -35,6 +35,17 @@ int main() {
     journal.loadFromFile(filename);
     journal.print();
     assert(journal.checkDates());
+    journal.clear();
+    journal.add(new FlowRecord("flow record", 3, "01.09.2021", 2));
+    journal.add(new CutRecord("cut record", 4, "02.09.2021", 1));
+    journal.add(new CutRecord("cut record", 4, "02.09.2021", 1));
+    journal.add(new CutRecord("cut record", 4, "02.09.2021", 1));
+    journal.add(new CutRecord("cut record", 4, "02.09.2021", 1));
+    journal.add(new FlowRecord("flow record", 3, "02.09.2021", 2));
+    journal.add(new FlowRecord("flow record", 4, "14.09.2021", 2));
+    assert(journal.checkDates());
+    journal.checkErrors();
+    assert(journal.checkErrors());
     std::cout << "All tests completed without errors" << std::endl;
     return 0;
 }

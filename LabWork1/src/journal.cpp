@@ -44,6 +44,19 @@ int compareDates(const std::string& firstDate, const std::string& secondDate) {
     return 0;
 }
 
+int determineWeek(const int& day) {
+    if (day <= 28 && day >= 22) {
+        return 4;
+    }
+    if (day >= 21 && day <= 15) {
+        return 3;
+    }
+    if (day >= 8 && day <= 14) {
+        return 2;
+    }
+    return 1;
+}
+
 Journal::Journal(int size) {
     this->records = new Record*[size];
     this->current = 0;
@@ -122,10 +135,13 @@ int Journal::size() const {
     return this->current;
 }
 
-Record* Journal::operator[](int index) {
-    return (this->records[index]);
+Record& Journal::operator[](int index) {
+    return (*(this->records[index]));
 }
 
+Record& Journal::get(int index) const {
+    return *(this->records[index]);
+}
 
 void Journal::clear() {
     this->current = 0;
@@ -198,6 +214,53 @@ bool Journal::checkDates() {
 }
 
 bool Journal::checkErrors() const {
+    if (this->current == 1) {
+        if (this->records[0]->getType() == "CutRecord" || this->records[0]->getType() == "Record") {
+            return false;
+        }
+        else {
+            FlowRecord* ptr = (FlowRecord*) this->records[0];
+            return ptr->getVolume() >= 1 && ptr->getVolume() <= 2;
+        }
+    }
+    int branchesCut = 0;
+    int waterFlown = 0;
+    int current_day = 0;
+    int last_day = 0;
+    int current_week = 0;
+    int last_week = 0;
+    for(int i = 0; i < this->current; i++) {
+        current_day = std::stoi(this->records[i]->getDate().substr(0, 2));
+        current_week = determineWeek(current_day);
+        std::cerr << "Iteration: " << i << std::endl;
+        std::cerr << "Day: " << current_day << std::endl;
+        std::cerr << "Last Day: " << last_day << std::endl;
+        if (this->records[i]->getType() == "FlowRecord") {
+            waterFlown = ((FlowRecord*) this->records[i])->getVolume();
+        }
+        if (this->records[i]->getType() == "CutRecord") {
+            branchesCut += ((CutRecord*) this->records[i])->getBranches();
+        }
+        if (current_day != last_day && this->records[i]->getType() != "FlowRecord") {
+            if (waterFlown < 1 || waterFlown > 2) {
+                std::cerr << "Wrong water amount: " << waterFlown << std::endl;
+                return false;
+            }
+            waterFlown = 0;
+        }
+        if (current_week != last_week && last_week > 0 && this->records[i]->getType() != "CutRecord") {
+            if (branchesCut < 4 || branchesCut > 8) {
+                std::cerr << "Wrong branches amount" << std::endl;
+                return false;
+            }
+            branchesCut = 0;
+        }
+        last_day = current_day;
+        last_week = current_week;
+    }
+    if (waterFlown < 1 || waterFlown > 2) {
+        return false;
+    }
     return true;
 }
 std::string Journal::serializeToString() const {
@@ -211,4 +274,10 @@ std::string Journal::serializeToString() const {
         }
     }
     return result;
+}
+
+void printJournal(const Journal& journal) {
+    for (int i = 0; i < journal.size(); i++) {
+        std::cout << journal.get(i).toString() << std::endl;
+    }
 }

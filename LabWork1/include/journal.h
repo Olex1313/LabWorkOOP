@@ -35,7 +35,9 @@ class Journal {
 
         int size() const;
 
-        Record *operator [](int index);
+        Record& operator [](int index);
+
+        Record& get(int index) const;
 
         void clear();
 
@@ -57,5 +59,6 @@ class Journal {
         std::string serializeToString() const ;
 };
 
+void printJournal(const Journal& journal);
 
 #endif
