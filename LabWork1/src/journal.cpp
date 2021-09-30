@@ -72,7 +72,6 @@ Journal::Journal(const Journal& journal) { // Needs fix due to copying adress
 Journal::Journal() {
     int capacity = 1;
     this->records = new Record*[capacity];
-    for (int i = 0; i < capacity; this->records[i] = new Record);
     this->current = 0;
 }
 
@@ -275,6 +274,31 @@ std::string Journal::serializeToString() const {
     }
     return result;
 }
+
+bool Journal::operator==(const Journal &otherJournal) const {
+    if (this->size() != otherJournal.size()) {
+        return false;
+    }
+    for(int i = 0; i < this->size(); i++) {
+        if (this->get(i).getType() != otherJournal.get(i).getType()) {
+            return false;
+        }
+        if (this->get(i).getType() == "FlowRecord") {
+            if (!((*(FlowRecord*)this->records[i]) == (*(FlowRecord*)otherJournal.records[i]))) {
+                return false;
+            }
+        }
+        else if (this->get(i).getType() == "CutRecord") {
+            if (!(*((CutRecord*)this->records[i]) == (*(CutRecord*)otherJournal.records[i]))) {
+                return false;
+            }
+        }
+        else if (!(this->get(i) == otherJournal.get(i))) {
+            return false;
+        }
+    }
+    return true;
+  }
 
 void printJournal(const Journal& journal) {
     for (int i = 0; i < journal.size(); i++) {

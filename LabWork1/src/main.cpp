@@ -21,6 +21,7 @@ int main() {
     assert(defaultRecord.getDate() == "");
     assert(defaultRecord.getCourse() == 0);
     assert(record == copyRecord);
+    assert(Record("Full Name", 4, "13.10.2001") == Record("Full Name", 4, "13.10.2001"));
     Journal journal = Journal(2);
     Record* p = &record;
     FlowRecord* flowRecord = new FlowRecord("flow record", 3, "15.09.2021", 4);
@@ -43,9 +44,17 @@ int main() {
     journal.add(new CutRecord("cut record", 4, "02.09.2021", 1));
     journal.add(new FlowRecord("flow record", 3, "02.09.2021", 2));
     journal.add(new FlowRecord("flow record", 4, "14.09.2021", 2));
+    assert(CutRecord("cut record", 4, "02.09.2021", 1) == CutRecord("cut record", 4, "02.09.2021", 1));
     assert(journal.checkDates());
     journal.checkErrors();
     assert(journal.checkErrors());
+    Journal oneJournal = Journal();
+    oneJournal.add(new CutRecord("cut record", 4, "02.09.2021", 1));
+    oneJournal.add(new FlowRecord("flow record", 3, "02.09.2021", 2));
+    Journal otherJournal = Journal();
+    otherJournal.add(new CutRecord("cut record", 4, "02.09.2021", 1));
+    otherJournal.add(new FlowRecord("flow record", 3, "02.09.2021", 2));
+    assert(oneJournal == otherJournal);
     std::cout << "All tests completed without errors" << std::endl;
     return 0;
 }

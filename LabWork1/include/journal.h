@@ -49,6 +49,8 @@ class Journal {
 
         bool checkErrors() const;
 
+        bool operator==(const Journal &otherJournal) const;
+
     private:
         Record **records;
 
