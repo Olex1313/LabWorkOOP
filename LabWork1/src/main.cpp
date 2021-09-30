@@ -29,7 +29,7 @@ int main() {
     journal.add(flowRecord);
     journal.add(cutRecord);
     journal.print();
-    std::string filename = "test.txt";
+    std::string filename = "serialization.txt";
     journal.dumpToFile(filename);
     journal.clear();
     journal.loadFromFile(filename);

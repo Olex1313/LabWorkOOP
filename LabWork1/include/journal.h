@@ -45,6 +45,8 @@ class Journal {
 
         bool checkDates() const;
 
+        bool checkErrors() const;
+
     private:
         Record **records;
 

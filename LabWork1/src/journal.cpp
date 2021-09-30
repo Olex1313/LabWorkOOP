@@ -197,6 +197,9 @@ bool Journal::checkDates() {
     return true;
 }
 
+bool Journal::checkErrors() const {
+    return true;
+}
 std::string Journal::serializeToString() const {
     std::string result = "";
     for (int i = 0; i < current; i++) {
